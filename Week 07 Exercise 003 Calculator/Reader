@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class Reader {   // 3.1
+    private Scanner reader;
+
+
+    public Reader() {
+        reader = new Scanner(System.in);
+
+    }
+
+    public String readString() {
+        String read = this.reader.nextLine();
+        return read;
+    }
+
+    public int readInteger() {
+        int read = Integer.parseInt(this.reader.nextLine());
+        return read;
+    }
+}
