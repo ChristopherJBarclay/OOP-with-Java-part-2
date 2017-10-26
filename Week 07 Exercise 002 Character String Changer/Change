@@ -1,0 +1,23 @@
+public class Change {
+    private char from;
+    private char to;
+
+    public Change(char fromCharacter, char toCharacter) {
+        this.from = fromCharacter;
+        this.to = toCharacter;
+    }
+
+    public String change(String characterString) {   // 2.1
+        String changed = "";
+
+        for (int count=0;count<characterString.length();count++) {
+            if (characterString.charAt(count)==this.from) {
+                changed+= this.to;
+            } else {
+                changed+=characterString.charAt(count);
+            }
+        }
+
+        return changed;
+    }
+}
