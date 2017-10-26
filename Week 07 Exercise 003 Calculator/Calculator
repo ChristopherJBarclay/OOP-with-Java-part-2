@@ -1,0 +1,80 @@
+public class Calculator {   // 3.2
+    private Reader reader;
+    private int totalCalcs;
+
+    public Calculator() {
+        reader = new Reader();
+        this.totalCalcs = 0;
+    }
+
+    public void start() {   // this was provided by exercise prompt.
+        while (true) {
+            System.out.print("command: ");
+            String command = reader.readString();
+            if (command.equals("end")) {
+                break;
+            }
+
+            if (command.equals("sum")) {
+                sum();
+            } else if (command.equals("difference")) {
+                this.difference();
+            } else if (command.equals("product")) {
+                this.product();
+            }
+        }
+        statistics();
+    }
+
+    private void sum() {   // 3.3
+        this.totalCalcs++;
+
+        System.out.print("Value1: ");
+        int value1 = this.reader.readInteger();
+        System.out.print("Value2: ");
+        int value2 = this.reader.readInteger();;
+
+        int total = value1 + value2;
+        System.out.print("sum of the values " + total);
+    }
+
+    private void difference() {   // 3.3
+        this.totalCalcs++;
+
+        System.out.print("Value1: ");
+        int value1 = this.reader.readInteger();
+        System.out.print("Value2: ");
+        int value2 = this.reader.readInteger();
+
+        int division = value1 - value2;
+        System.out.print("difference of the values " + division);
+    }
+
+    private void product() {   // 3.3
+        this.totalCalcs++;
+
+        System.out.print("Value1: ");
+        int value1 = this.reader.readInteger();
+        System.out.print("Value2: ");
+        int value2 = this.reader.readInteger();
+
+        int product = value1 * value2;
+        System.out.print("product of the values " + product);
+    }
+
+    private void statistics() {   // 3.4
+        System.out.println("Calculations done " + this.totalCalcs);
+    }
+
+/*
+	private void askValues() {
+		// must implement value1 and value2 initializer in constructor to use this code.
+
+		System.out.print("Value1: ");
+		this.value1 = Integer.parseInt(this.reader.nextLine());
+		System.out.print("Value2: ");
+		this.value2 = Integer.parseInt(this.reader.nextLine());
+	}
+*/
+
+}
