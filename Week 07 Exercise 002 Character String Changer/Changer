@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class Changer {    //2.2...
+    private ArrayList<Change> allChanges;
+
+    public Changer() {
+        this.allChanges = new ArrayList<Change>();
+    }
+
+    public void addChange(Change change) {
+        this.allChanges.add(change);
+    }
+
+    public String change(String characterString) {   // meat and potatoes
+        String newString = characterString;
+        //newString is first the same as characterString, but it needs to change once for each Change item in the arraylist and then return all of those changes.
+
+        for (Change change : this.allChanges) {
+            newString = change.change(newString);
+            // use newString to make changes to keep track of old and new changes. must assign newString to the new version of itself after each change.
+
+        }
+        return newString;
+    }
+}
