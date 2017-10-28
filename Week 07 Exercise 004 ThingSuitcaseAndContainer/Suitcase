@@ -1,0 +1,73 @@
+import java.util.*;
+
+public class Suitcase {   // 4.2
+    private ArrayList<Thing> inSuitcase;
+    private int maxWeight;
+
+    public Suitcase(int maxWeight) {
+        this.inSuitcase = new ArrayList<Thing>();
+        this.maxWeight = maxWeight;
+    }
+
+    public void addThing(Thing thing) {
+        if ((thing.getWeight() + this.totalWeight()) > this.maxWeight) {
+            // do nothing if weight would be larger than maxWeight
+        } else {
+            this.inSuitcase.add(thing);
+            // take this out after 4.4 totalWeight() method >> this.currentWeight+=thing.getWeight();
+        }
+    }
+
+    public String toString() {   // 4.3
+
+        // if (this.inSuitcase.size() > 1) ((no longer using this if statement, must have a return at end.
+
+        if (this.inSuitcase.size()==0) {
+            return "empty (0 kg)";
+        } else if (this.inSuitcase.size()==1) {
+            return ("1 thing (" + this.totalWeight() + " kg)");
+        }
+
+        return (this.inSuitcase.size() + " things (" + this.totalWeight() + " kg)");
+    }
+
+    // 4.4 COMPLETE - modified so there are only 2 object variables (no this.currentWeight!)
+
+    public void printThings() {   // 4.4
+        // unnecessary code >> System.out.println("All things in the suitcase: ");
+
+        for (Thing thisThing : this.inSuitcase) {
+            System.out.print(thisThing.getName() + " (" + thisThing.getWeight() + " kg)");
+            System.out.println();
+        }
+    }
+
+    public int totalWeight() {   // 4.4
+        int currentWeight = 0;
+
+        for (Thing thisThing : this.inSuitcase) {
+            currentWeight+=thisThing.getWeight();
+        }
+
+        return currentWeight;
+    }
+
+    public Thing heaviestThing() {    // 4.5 - return null if we have no items. otherwise return heaviest object in arraylist
+
+
+        if (inSuitcase.isEmpty()) {
+            return null;
+        }
+
+        Thing newThing = this.inSuitcase.get(0);
+
+        for (Thing thisThing : this.inSuitcase) {
+            if (thisThing.getWeight() > newThing.getWeight()) {
+                newThing = thisThing;
+            }
+        }
+
+        return newThing;
+    }
+
+}
