@@ -1,0 +1,18 @@
+public class Main {
+
+    public static void main(String[] args) {
+        // use this main class to test your program!
+    }
+
+
+    public static void addSuitcasesFullOfBricks(Container container) {    // 4.8
+
+
+        for (int count = 0; count < 100; count++) {   // create 100 suitcases
+            Suitcase thisSuitcase = new Suitcase(100);  // create new suitcase
+            Thing brick = new Thing("Brick", count + 1);   // create new brick with weight "count+1"
+            thisSuitcase.addThing(brick);            // add brick to suitcase
+            container.addSuitcase(thisSuitcase);        // add suitcase to container
+        }
+    }
+}
