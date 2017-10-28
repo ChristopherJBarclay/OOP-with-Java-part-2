@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class PromissoryNote {
+    private HashMap<String, Double> mapOfNotes;
+
+    public PromissoryNote() {
+        this.mapOfNotes = new HashMap<String, Double>();
+    }
+
+    public void setLoan(String toWhom, double value) {
+        this.mapOfNotes.put(toWhom, value);    // use "put" command to create a new key and value in HashMap
+    }
+
+    public double howMuchIsTheDebt(String whose) {
+        if (this.mapOfNotes.containsKey(whose)) {    // must make sure the person exists first, "don't take their word for it!"
+            return this.mapOfNotes.get(whose);    // if eprson exists, return debt in double format
+        }                                              // do not need to take into account old loans. new loans erase old ones.
+
+        return 0;    // if person does not exist, return 0 (no debt)
+    }
+}
