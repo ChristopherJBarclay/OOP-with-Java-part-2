@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Container {    // 4.6
+    private ArrayList<Suitcase> suitcases;
+    private int currentWeight;
+    private int maxWeight;
+
+    public Container(int maxWeight) {
+        this.suitcases = new ArrayList<Suitcase>();
+        this.currentWeight = 0;
+        this.maxWeight = maxWeight;
+    }
+
+    public void addSuitcase(Suitcase suitcase) {
+        if (suitcase.totalWeight()+this.currentWeight > this.maxWeight) {
+            // do nothing if it would put the total weight over the max
+        } else {
+            this.suitcases.add(suitcase);
+            this.currentWeight+=suitcase.totalWeight();
+        }
+    }
+
+    public String toString() {
+        return this.suitcases.size() + " suitcases (" + this.currentWeight + " kg)";
+    }
+
+    public void printThings() {   // 4.7
+        for (Suitcase suitcase : this.suitcases) {
+            suitcase.printThings();
+        }
+    }
+
+
+}
