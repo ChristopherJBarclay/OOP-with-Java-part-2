@@ -1,0 +1,76 @@
+import java.util.*;
+
+public class Jumper {
+    private ArrayList<Skier> skiers;
+    private Random random;
+
+    public Jumper() {
+        this.skiers = new ArrayList<Skier>();
+        this.random = new Random();
+    }
+
+    public boolean emptyString(String string) {
+        if (string.equals("")) {
+            return false;
+        }
+            return true;
+    }
+
+    public boolean toJump(String string) {
+        if (string.equals("jump")) {
+            return true;
+        }
+        return false;
+    }
+
+    public void addName(String name) {
+        Skier newSkier = new Skier(name);
+        this.skiers.add(newSkier);
+    }
+
+    public ArrayList<Skier> getSkiers() {
+        return this.skiers;
+    }
+
+    public void sortSkiers() {
+        Collections.sort(this.skiers);
+    }
+
+    public void sortSkiersDown() {
+        Collections.reverse(this.skiers);
+    }
+
+    public int getNewJump() {
+        int newJump = this.random.nextInt(60) + 61;
+            // random number between 60 and 120
+
+        return newJump;
+    }
+
+    public int getNewJudge() {
+        int newJudge = this.random.nextInt(10) + 11;
+            // random number between 10 and 20
+
+        return newJudge;
+    }
+
+    public ArrayList<Integer> getFiveJudges() {
+        ArrayList<Integer> fiveJudges = new ArrayList<Integer>();
+
+        for (int counter = 0; counter < 5; counter++) {
+            int newJudge = this.getNewJudge();
+            fiveJudges.add(newJudge);
+        }
+
+        return fiveJudges;
+    }
+
+    public ArrayList<Integer> removeLargestAndSmallest(ArrayList<Integer> fiveJudges) {
+        Collections.sort(fiveJudges);
+
+        fiveJudges.remove(0);
+        fiveJudges.remove(fiveJudges.size()-1);
+
+        return fiveJudges;
+    }
+}
