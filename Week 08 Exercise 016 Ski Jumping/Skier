@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Skier implements Comparable<Skier> {
+    private final String name;
+    private int points;
+    private ArrayList<Integer> jumps;
+
+    public Skier(String name) {
+        this.name = name;
+        this.points = 0;
+        this.jumps = new ArrayList<Integer>();
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getPoints() {
+        return this.points;
+    }
+
+    public void addPoints(int newPoints) {
+        this.points += newPoints;
+    }
+
+    public void addJump(int jump) {
+        this.jumps.add(jump);
+    }
+
+    public ArrayList<Integer> getJumps() {
+        return this.jumps;
+    }
+
+    @Override
+    public int compareTo(Skier skier) {
+        return this.points - skier.getPoints();
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " (" + this.points + " points)";
+    }
+}
