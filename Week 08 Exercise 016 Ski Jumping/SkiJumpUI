@@ -1,0 +1,176 @@
+import java.util.*;
+
+//1. ask for jumper names, empty string = move to jumping phase
+//2. jumping phase = jumpers jump one by one in reverse order according to their points
+//2.5. least points always jumps first, most points jumps last
+//3. random generator (60-120) for jump lengths.
+//4. Judge decisions = 5 judges vote (random 10-20), three middle jumps are added to points
+//5. Tournament results
+
+public class SkiJumpUI {
+    private Scanner input;
+    private Jumper jumper;
+
+    public SkiJumpUI() {
+        this.input = new Scanner(System.in);
+        this.jumper = new Jumper();
+    }
+
+    public void start() {
+        System.out.println("Kumpula ski jumping week");
+        System.out.println();
+
+        this.names();
+
+        System.out.println();
+        System.out.println("The tournament begins!");
+        System.out.println();
+
+        this.rounds();
+        System.out.println();
+
+        this.printResults();
+    }
+
+    public void names() {
+        System.out.println("Write the names of the participants one at a time; an empty string brings you to the jumping phase.");
+
+        while (true) {
+            System.out.print("  Participant name: ");
+            String getName = this.input.nextLine();
+
+            if (this.jumper.emptyString(getName)==false) {      // check if string is empty
+                break;
+            }
+
+            this.jumper.addName(getName);
+        }
+    }
+
+    public void rounds() {
+        int roundCount = 1;
+
+        while (true) {
+            System.out.print("Write \"jump\" to jump; otherwise you quit: ");
+            System.out.println();
+
+            String willJump = this.input.nextLine();
+
+            if (this.jumper.toJump(willJump)==false) {          // to jump or not to jump, that is the question.
+                break;
+            }
+            System.out.println();
+
+            System.out.println("Round " + roundCount);          // what round are we on?
+            System.out.println();
+
+            this.jumpingOrder();                                // determine jumping order
+            System.out.println();
+
+            this.roundResults(roundCount);                      // get round results printed and skier points added
+            System.out.println();
+
+            roundCount++;
+        }
+    }
+
+    public void jumpingOrder() {
+        System.out.println("Jumping order:");
+
+        this.jumper.sortSkiers();
+
+        int counter = 1;
+        for (Skier skier : this.jumper.getSkiers()) {
+            System.out.print("  " + counter + ". ");
+
+            System.out.println(skier);
+
+            counter++;
+        }
+    }
+
+    public void roundResults(int roundCounter) {
+        System.out.println("Results of round " + roundCounter);
+
+        for (Skier skier : this.jumper.getSkiers()) {
+            System.out.println("  " + skier.getName());
+
+            int newJump = this.jumper.getNewJump();                 // get new jump length
+            skier.addJump(newJump);                                 // add jump to list of jumps
+
+            System.out.println("    length: " + newJump);
+            int addThesePoints = this.printJudges(newJump);            // print judges and get points to add to skier total
+            System.out.println();
+
+            skier.addPoints(addThesePoints);                        // add these points to skier's total
+        }
+    }
+
+    public int printJudges(int jumpLength) {
+        System.out.print("    judge votes: [");
+
+        ArrayList<Integer> judgeVotes = this.jumper.getFiveJudges();
+
+        int counter = 0;
+        for (int judge : judgeVotes) {
+            System.out.print(judge);
+
+            if (counter < 4) {
+                System.out.print(", ");
+            } else {
+                System.out.print("]");
+            }
+
+            counter++;
+        }
+
+        int addPoints = this.addPoints(judgeVotes, jumpLength);     // add these judge points and jump length to total points for this skier
+        return addPoints;
+    }
+
+    public int addPoints(ArrayList<Integer> fiveJudges, int jumpLength) {
+        ArrayList<Integer> threeJudges = this.jumper.removeLargestAndSmallest(fiveJudges);
+
+        int addThesePoints = jumpLength;
+
+        for (int judge : threeJudges) {
+            addThesePoints += judge;
+        }
+
+        return addThesePoints;
+    }
+
+    public void printResults() {
+        System.out.println("Thanks!");
+        System.out.println();
+
+        System.out.println("Tournament results:");
+        System.out.println("Position    Name");
+
+        int counter = 1;                                // count which skier we are on
+
+        Collections.sort(this.jumper.getSkiers());                              // sort points lowest to highest
+        Collections.reverse(this.jumper.getSkiers());                           // reverse order to from highest to lowest
+
+        for (Skier skier : this.jumper.getSkiers()) {
+            System.out.println(counter + "           " + skier);
+            System.out.print("            jump lengths: ");
+
+            int jumpCounter = 0;
+
+            for (int jump : skier.getJumps()) {
+                System.out.print(jump);                           // print each jump length
+
+                if (jumpCounter < skier.getJumps().size()-1) {
+                    System.out.print(" m, ");                    // add "m" and comma if the line is not finished
+                } else {
+                    System.out.println(" m");                   // finish the line with an "m" but no comma, if this is the last jump
+                }
+
+                jumpCounter++;                                  // increase counter
+            }
+
+            counter++;
+        }
+    }
+}
