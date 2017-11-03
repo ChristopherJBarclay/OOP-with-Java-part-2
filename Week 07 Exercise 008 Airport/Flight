@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class Flight {				// create new object Flight for flights (acts as a container)
+    private String planeID;
+    private String departureCode;
+    private String arrivalCode;
+
+    public Flight(String plane, String depart, String arrive) {
+        this.planeID = plane;
+        this.departureCode = depart;
+        this.arrivalCode = arrive;
+    }
+
+    public String getPlaneID() {
+        return this.planeID;
+    }
+
+    public String getDepartureCode() {
+        return this.departureCode;
+    }
+
+    public String getArrivalCode() {
+        return this.arrivalCode;
+    }
+}
