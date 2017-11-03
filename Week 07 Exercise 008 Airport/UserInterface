@@ -1,0 +1,116 @@
+import java.util.*;
+
+public class UserInterface {
+    private Scanner reader;
+    private Airport airport;
+
+    public UserInterface(Airport airport) {
+        this.reader = new Scanner(System.in);
+        this.airport = airport;
+    }
+
+
+    public void startAirport() {				//start airport panel
+        System.out.println("Airport panel");
+        System.out.println("--------------------");
+        System.out.println();
+    }
+
+    public void nextAirportScript() {			//each iteration of choose operation for airport panel
+        System.out.println("Choose operation:");
+        System.out.println("[1] Add airplane");
+        System.out.println("[2] Add flight");
+        System.out.println("[x] Exit");
+        System.out.print("> ");
+    }
+
+    public void startFlights() {				//start flight panel
+        System.out.println("Flight service");
+        System.out.println("------------");
+        System.out.println();
+    }
+
+    public void nextFlightScript() {			//each iteration of choose operation for flight panel
+        System.out.println("Choose operation:");
+        System.out.println("[1] Print planes");
+        System.out.println("[2] Print flights");
+        System.out.println("[3] Print plane info");
+        System.out.println("[x] Quit");
+        System.out.print("> ");
+    }
+
+    public void start() {
+        startAirport();
+
+        while (true) {					// airport panel loop
+            nextAirportScript();
+
+            String input = this.reader.nextLine();
+
+            if (input.equals("1")) {
+                this.addPlane();
+            } else if (input.equals("2")) {
+                this.addFlight();
+            } else {
+                System.out.println();
+                break;
+            }
+        }
+
+        startFlights();
+
+        while (true) {
+            nextFlightScript();
+
+            String input = this.reader.nextLine();
+
+            if (input.equals("1")) {
+                this.printPlanes();
+            } else if (input.equals("2")) {
+                this.printFlights();
+            } else if (input.equals("3")) {
+                this.planeInfo();
+            } else {
+                break;
+            }
+        }
+    }
+
+    public void addPlane() {
+        System.out.print("Give plane ID: ");
+        String planeID = this.reader.nextLine();
+
+        System.out.print("Give plane capacity: ");
+        String capacity = this.reader.nextLine();
+
+        airport.addPlane(planeID, capacity);
+    }
+
+    public void addFlight() {
+        System.out.print("Give plane ID: ");
+        String planeID = this.reader.nextLine();
+
+        System.out.print("Give departure airport code: ");
+        String departureCode = this.reader.nextLine();
+
+        System.out.print("Give destination airport code: ");
+        String arrivalCode = this.reader.nextLine();
+
+        airport.addFlight(planeID, departureCode, arrivalCode);
+    }
+
+    public void printPlanes() {
+        airport.printPlanes();
+    }
+
+    public void printFlights() {
+        airport.printFlights();
+    }
+
+    public void planeInfo() {
+        System.out.print("Give plane ID: ");
+        String planeID = this.reader.nextLine();
+
+        airport.printPlaneInfo(planeID);
+    }
+}
