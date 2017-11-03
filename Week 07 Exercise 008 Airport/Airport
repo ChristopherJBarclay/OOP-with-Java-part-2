@@ -1,0 +1,61 @@
+import java.util.*;
+
+
+public class Airport {
+    private ArrayList<Plane> planes;			// put all planes into plane arraylist
+    private ArrayList<Flight> flights;			// put all flgihts into flight arraylist
+
+    public Airport() {
+        this.planes = new ArrayList<Plane>();
+        this.flights = new ArrayList<Flight>();
+    }
+
+    public void addPlane(String planeID, String capacity) {
+        Plane newPlane = new Plane(planeID, capacity);
+        this.planes.add(newPlane);
+    }
+
+    public void addFlight(String planeID, String departureCode, String arrivalCode) {
+        Flight newFlight = new Flight(planeID, departureCode, arrivalCode);
+        this.flights.add(newFlight);
+    }
+
+    public void printPlanes() {
+        for (Plane thisPlane : planes) {
+            System.out.println(thisPlane.getPlaneID() + " (" + thisPlane.getCapacity() + " ppl)");
+        }
+    }
+
+    public void printFlights() {
+        String currentPlaneCapacity = "0";
+
+        for (Flight thisFlight : flights) {
+            for (Plane thisPlane : planes) {			//this might be messed up because of how I did planes and flights. can't get the plane capacity from flight by itself.
+                String plane = thisFlight.getPlaneID();
+
+                if (plane.equals(thisPlane.getPlaneID())) {
+                    currentPlaneCapacity = thisPlane.getCapacity();
+                    break;
+                }
+            }
+
+            System.out.println(thisFlight.getPlaneID() + " (" + currentPlaneCapacity + " ppl) (" + thisFlight.getDepartureCode() + "-" + thisFlight.getArrivalCode() + ")");
+        }
+    }
+
+    public void printPlaneInfo(String planeID) {
+        String currentPlaneCapacity = "0";
+
+        for (Plane thisPlane : planes) {			//this might be messed up because of how I did planes and flights. can't get the plane capacity from flight by itself
+
+            if (planeID.equals(thisPlane.getPlaneID())) {
+                currentPlaneCapacity = thisPlane.getCapacity();
+                break;
+            }
+        }
+
+        System.out.println(planeID + " (" + currentPlaneCapacity + " ppl)");
+
+    }
+
+}
