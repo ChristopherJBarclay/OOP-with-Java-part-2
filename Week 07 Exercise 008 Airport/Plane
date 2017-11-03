@@ -1,0 +1,20 @@
+import java.util.*;
+
+
+public class Plane {				// create new object Plane for planes (acts as a container)
+    private String planeID;
+    private String capacity;
+
+    public Plane(String planeID, String capacity) {
+        this.planeID = planeID;
+        this.capacity = capacity;
+    }
+
+    public String getPlaneID() {
+        return this.planeID;
+    }
+
+    public String getCapacity() {
+        return this.capacity;
+    }
+}
