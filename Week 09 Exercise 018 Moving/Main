@@ -1,0 +1,34 @@
+// I made this Main to test my code...
+
+
+package moving;
+
+import moving.domain.*;
+import moving.logic.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Item item = new Item("apple", 4);
+        Item otherItem = new Item("oranges", 3);
+        Item anotherItem = new Item("bats", 8);
+
+        List<Thing> items = new ArrayList<Thing>();
+
+        items.add(item);
+        items.add(otherItem);
+        items.add(anotherItem);
+
+        Packer packer = new Packer(10);
+
+        List<Box> boxes = packer.packThings(items);
+
+
+        System.out.println("Number of boxes: " + boxes.size());
+
+        for (Box box : boxes) {
+            System.out.println("   things in the box: " + box.getVolume());
+        }
+    }
+}
