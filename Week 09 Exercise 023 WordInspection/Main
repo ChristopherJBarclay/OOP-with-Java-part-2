@@ -1,0 +1,51 @@
+package wordinspection;
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// "src/wordList.txt"       full list
+// "src/shortList.txt"      short list
+
+public class Main {
+    public static void main(String[] args) {
+        // test code
+
+        File file = new File ("src/shortList.txt");
+        WordInspection inspector = new WordInspection(file);
+
+        int wordCount = inspector.wordCount();
+        ArrayList<String> numberOfZ = new ArrayList<String>(inspector.wordsContainingZ());
+        ArrayList<String> numberOfL = new ArrayList<String>(inspector.wordsEndingInL());
+        ArrayList<String> palindromes = new ArrayList<String>(inspector.palindromes());
+        ArrayList<String> allVowels = new ArrayList<String>(inspector.wordsWhichContainAllVowels());
+
+
+        System.out.println("Number of words: " + wordCount);
+        System.out.println();
+
+        System.out.println("Words with Z: ");
+        for (String string : numberOfZ) {
+            System.out.println(string);
+        }
+        System.out.println();
+
+        System.out.println("Words ending with L: ");
+        for (String string : numberOfL) {
+            System.out.println(string);
+        }
+        System.out.println();
+
+        System.out.println("Words that are palindromes: ");
+        for (String string : palindromes) {
+            System.out.println(string);
+        }
+        System.out.println();
+
+        System.out.println("Words which contain every vowel: ");
+        for (String string : allVowels) {
+            System.out.println(string);
+        }
+        System.out.println();
+    }
+}
