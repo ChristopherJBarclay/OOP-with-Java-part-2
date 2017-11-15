@@ -1,0 +1,61 @@
+package file;
+
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class Analysis {
+    private File file;
+    private Scanner reader;
+
+    public Analysis(File file) {
+        this.file = file;
+    }
+
+// open and close
+    public void openFile() {
+        try {                                       // try... to turn this.reader into new Scanner object
+            this.reader = new Scanner(this.file);
+        } catch (Exception e) {                     // catch exceptions
+            System.out.println("Could not find file, try again.");
+        }
+    }
+
+    public void closeFile() {
+        this.reader.close();
+    }
+
+// class methods
+    public int lines() {                            // 22.1
+        int numberOfLines = 0;
+
+        openFile();                                 // open file with try/catch
+
+        while (this.reader.hasNextLine()) {         // while reader has a next line
+            this.reader.nextLine();                 // read next line
+            numberOfLines++;                        // increment numberOfLines by one
+        }
+
+        closeFile();                                // always remember to close a file
+
+        return numberOfLines;
+    }
+
+    public int characters() {                       // 22.2
+        int numberOfCharacters = 0;
+
+        openFile();                                 // open file
+
+        while (this.reader.hasNextLine()){
+            String string = this.reader.nextLine();     // new string containing next line
+
+            int length = string.length();           // new int with length of string
+
+            numberOfCharacters+=length+1;             // add string length to numberOfCharacters running total. add 1 more for line break
+        }
+
+        closeFile();                                // close file
+
+        return numberOfCharacters;
+    }
+}
