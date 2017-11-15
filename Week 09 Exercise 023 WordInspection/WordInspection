@@ -1,0 +1,151 @@
+package wordinspection;
+
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+
+// "different kinds of analyses on words"
+// "src/wordList.txt"       full list
+// "src/shortList.txt"      short list
+
+public class WordInspection {
+    private Scanner r;
+    private File file;
+
+    public WordInspection(File file) {
+        this.file = file;
+    }
+
+// open and close file
+    public void openFile() {
+        try {
+            this.r = new Scanner(this.file, "UTF-8");
+        } catch (Exception e) {
+            System.out.println("Could not find file.");
+        }
+    }
+
+    public void closeFile() {
+        this.r.close();
+    }
+
+// class methods
+    public int wordCount() {                        // 23.1
+        int numberOfWords = 0;
+
+        openFile();
+
+        while (this.r.hasNextLine()) {
+            String string = this.r.nextLine();
+            numberOfWords++;
+        }
+
+        closeFile();
+
+        return numberOfWords;
+    }
+
+    public List<String> wordsContainingZ() {        // 23.2
+        ArrayList<String> wordList = new ArrayList<String>();
+
+        openFile();
+
+        while (this.r.hasNextLine()) {
+            String string = this.r.nextLine();
+
+            if (string.contains("z")) {
+                wordList.add(string);
+            }
+
+        }
+
+        closeFile();
+
+        return (List) wordList;                        // unchecked assignment... but ArrayList will always be a List right?
+    }
+
+    public List<String> wordsEndingInL() {               // 23.3
+        ArrayList<String> wordList = new ArrayList<String>();
+
+        openFile();
+
+        while (this.r.hasNextLine()) {
+            String string = this.r.nextLine();
+
+            String lastLetter = ""+ string.charAt(string.length()-1);       // char at string.length()-1 (taking into account index starting at 0)
+
+            if (lastLetter.equals("l")) {               // if last letter equals "l"
+                wordList.add(string);                   // add string to list
+            }
+
+        }
+
+        closeFile();
+
+        return (List) wordList;                        // unchecked assignment... but ArrayList will always be a List right?
+    }
+
+    public List<String> palindromes() {                 // 23.4
+        ArrayList<String> wordList = new ArrayList<String>();
+
+        openFile();
+
+        while (this.r.hasNextLine()) {
+            String string = this.r.nextLine();          // get next line and put it in string
+            boolean maybe = true;                       // create boolean outside of loop
+            int count = 0;                             // create counter outside of loop
+
+            while (maybe) {                             // while variable "maybe" is true
+                if (count==string.length()) {           // break out of loop if count is the same length as string.length()
+                    break;
+                }
+
+                String thisLetter = ""+ string.charAt(count);                   // char at index "count"
+                String endLetter = ""+ string.charAt(string.length()-(count+1));    // char at index string.length - "count". add 1 to take into account index beginning at 0 and ending 1 index short of string.length
+
+                if (thisLetter.equals(endLetter)) {
+                    maybe=true;
+                } else {
+                    maybe=false;
+                }
+
+                count++;                               // increase counter
+            }
+
+            if (maybe) {
+                wordList.add(string);                  // add string to list
+            }
+
+        }
+
+        closeFile();
+
+        return (List) wordList;                        // unchecked assignment... but ArrayList will always be a List right?
+    }
+
+    public List<String> wordsWhichContainAllVowels() {      // 23.5
+        ArrayList<String> words = new ArrayList<String>();
+        boolean allVowels = false;
+
+        openFile();
+
+        while (this.r.hasNextLine()) {
+            String string = this.r.nextLine();          // get next line and put it in string
+
+            if (string.contains("a") && string.contains("e") && string.contains("i") && string.contains("o")
+                    && string.contains("u") && string.contains("y") && string.contains("ä") && string.contains("ö")) {
+                allVowels=true;
+            } else {
+                allVowels=false;
+            }
+
+            if (allVowels) {
+                words.add(string);
+            }
+        }
+
+        closeFile();
+
+        return words;
+    }
+}
