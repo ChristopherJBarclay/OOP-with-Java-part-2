@@ -1,5 +1,6 @@
 # OOP with Java, part 2
-# Object-Oriented-Programming-with-Java-part-2---University-of-Helsinki-mooc.fi-english
+Object-Oriented-Programming-with-Java-part-2---University-of-Helsinki-mooc.fi-english
+----------------------------------------------------------------------------------------
 
 This Repository is for the course:
 
